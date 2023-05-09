@@ -19,8 +19,14 @@ const typeDefs = gql`
 		username: String!
 		firstName: String
 		lastName: String
+		"""
+		I the sum of firstname and lastname
+		"""
 		fullName: String
 	}
+	"""
+	Tweet object represents a resource for a tweet
+	"""
 	type Tweet {
 		id: ID!
 		text: String!
@@ -33,6 +39,9 @@ const typeDefs = gql`
 	}
 	type Mutation {
 		postTweet(text: String!, userId: ID!): Tweet!
+		"""
+		delete the tweet if is exist
+		"""
 		deleteTweet(id: ID!): Boolean!
 	}
 `;
