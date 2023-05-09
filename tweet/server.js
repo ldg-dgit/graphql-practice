@@ -4,10 +4,12 @@ let tweets = [
 	{
 		id: "1",
 		text: "first",
+		userId: "2",
 	},
 	{
 		id: "2",
 		text: "second",
+		userId: "1",
 	},
 ];
 
@@ -65,6 +67,7 @@ const resolvers = {
 			const newTweet = {
 				id: tweets.length + 1,
 				text,
+				userId,
 			};
 			tweets.push(newTweet);
 			return newTweet;
@@ -79,6 +82,15 @@ const resolvers = {
 	User: {
 		fullName({ firstName, lastName }) {
 			return `${firstName} ${lastName}`;
+		},
+	},
+	Tweet: {
+		author({ userId }) {
+			const writeUser = users.find((user) => user.id === userId);
+			if (!writeUser) {
+				throw new Error("cant find user");
+			}
+			return writeUser;
 		},
 	},
 };
